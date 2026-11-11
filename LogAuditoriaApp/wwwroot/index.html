@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Teste de Logs</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; gap: 15px; margin: 0; background: #111; color: #fff; }
+        button { width: 220px; padding: 12px; font-size: 16px; font-weight: bold; cursor: pointer; border: none; border-radius: 6px; }
+        .btn-info { background: #0284c7; color: white; }
+        .btn-warn { background: #d97706; color: white; }
+        .btn-erro { background: #dc2626; color: white; }
+        #retorno { margin-top: 10px; font-family: monospace; color: #4ade80; }
+    </style>
+</head>
+<body>
+
+    <h2>Disparador de Logs</h2>
+    <button class="btn-info" onclick="enviarLog('/log/info')">Gerar Log INFO</button>
+    <button class="btn-warn" onclick="enviarLog('/log/aviso')">Gerar Log WARNING</button>
+    <button class="btn-erro" onclick="enviarLog('/log/erro')">Gerar Log ERROR</button>
+
+    <div id="retorno">Clique em um botão e olhe o terminal</div>
+
+    <script>
+        async function enviarLog(rota) {
+            const resp = await fetch(rota, { method: 'POST' });
+            const data = await resp.json();
+            document.getElementById('retorno').innerText = data.status;
+        }
+    </script>
+
+</body>
+</html>
